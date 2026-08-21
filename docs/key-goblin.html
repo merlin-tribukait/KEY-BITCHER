@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KEY-GOBLIN | Ideas, Plans &amp; Future Hoards</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="goblin.css">
+  <link rel="icon" href="assets/goblin/logo-badge.svg">
+</head>
+<body class="goblin-page">
+  <div class="goblin-topbar">
+    <span class="crumb">KEY-BITCHER HOARD NETWORK → KEY-GOBLIN</span>
+    <nav>
+      <a href="index.html">← Back to the Bitch</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/merlin-tribukait/KEY-BITCHER" target="_blank">GitHub ↗</a>
+    </nav>
+  </div>
+
+  <div class="goblin-wrap">
+    <!-- HERO -->
+    <header class="goblin-hero reveal">
+      <img src="assets/goblin/logo-badge.svg" alt="Key-Goblin">
+      <div>
+        <h1>KEY-GOBLIN HOARD</h1>
+        <p class="sub">The idea vault, plan pit and roadmap lair behind Key-Bitcher. Everything shiny gets hoarded here.</p>
+        <div class="hoard-counter">IDEAS &amp; KEYS IN HOARD: <span id="keyCount">1,342</span></div>
+        <p class="sub" style="font-size:12px; margin-top:8px;">Every coin below is one idea, one task, one platform. Stash yours.</p>
+      </div>
+    </header>
+
+    <!-- 1. THE HOARD -->
+    <section class="goblin-section reveal">
+      <h2>🕳️ The Hoard</h2>
+      <p class="lede">What this page is: a living <strong>roadmap + idea pile</strong> for the Key-Bitcher project. Nothing here is sacred — ideas get stolen from other projects, merged, split, or buried. If it glitters, it goes in.</p>
+      <div class="goblin-info">
+        <div class="info-card">
+          <h4>Pill Guide</h4>
+          <p><span class="pill idea">Idea</span> spark of gold, unproven<br>
+             <span class="pill plan">Plan</span> scheduled &amp; staked out<br>
+             <span class="pill wip">WIP</span> the goblin is digging<br>
+             <span class="pill want">Wanted</span> need a helper goblin</p>
+        </div>
+        <div class="info-card">
+          <h4>Status Legend</h4>
+          <p>✅ done &nbsp; 🔄 in motion &nbsp; 📌 queued<br>
+             💀 buried (do not revive)<br>
+             🪙 = hoard value: bigger pile = higher priority.</p>
+        </div>
+        <div class="info-card">
+          <h4>How to Contribute</h4>
+          <p>Open an <a href="https://github.com/merlin-tribukait/KEY-BITCHER/issues" target="_blank" style="color:#52b788;">issue</a> titled <code>HOARD:</code>… and your idea gets a coin. Good ones get minted into the roadmap.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. IDEAS VAULT -->
+    <section class="goblin-section reveal">
+      <h2>💡 Ideas Vault</h2>
+      <p class="lede">Shiny but unproven sparks. A few may become plans; most will be polished until they shine.</p>
+      <div class="goblin-grid">
+        <div class="goblin-card">
+          <h3>Universal Key Stashing <span class="pill idea">Idea</span></h3>
+          <p>Encrypted wallet file (keyring + password) so keys survive OS reinstall and get imported into any environment in one command.</p>
+          <div class="meta"><span class="coins">🪙🪙🪙</span> — one stash, every machine</div>
+        </div>
+        <div class="goblin-card">
+          <h3>Drift Detector <span class="pill idea">Idea</span></h3>
+          <p>Diff the local <code>.env</code> against the hoard and report which keys are stale, missing or swapped. Bitch Mode makes it very personal.</p>
+          <div class="meta"><span class="coins">🪙🪙🪙🪙</span> — no more silent breakage</div>
+        </div>
+        <div class="goblin-card">
+          <h3>Key Tinder <span class="pill idea">Idea</span></h3>
+          <p>Match your codebase's referenced env vars against the ones actually declared. Swipe left on orphans, swipe right on secrets.</p>
+          <div class="meta"><span class="coins">🪙🪙</span> — gamified linting</div>
+        </div>
+        <div class="goblin-card">
+          <h3>Rotation Shepherd <span class="pill idea">Idea</span></h3>
+          <p>Scheduled key rotation that herds all environments to a new credential with minimal downtime and a very smug summary log.</p>
+          <div class="meta"><span class="coins">🪙🪙🪙🪙🪙</span> — the endgame</div>
+        </div>
+        <div class="goblin-card">
+          <h3>Wave Aura <span class="pill idea">Idea</span></h3>
+          <p>Real-time status ring in the terminal showing which Wave environment is live, which keys it holds, and whether it's safe to drink from.</p>
+          <div class="meta"><span class="coins">🪙🪙</span> — pretty AND useful</div>
+        </div>
+        <div class="goblin-card">
+          <h3>Hoard Sync Daemon <span class="pill idea">Idea</span></h3>
+          <p>Background watcher that auto-pulls new S3/Backblaze secrets the moment the object key changes. The goblin never sleeps.</p>
+          <div class="meta"><span class="coins">🪙🪙🪙</span> — zero-touch keys</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PLANS -->
+    <section class="goblin-section reveal">
+      <h2>🗺️ The Plans (in the order the goblin digs)</h2>
+      <p class="lede">Concrete, staked-out work. Shovel in hand.</p>
+      <div class="goblin-grid">
+        <div class="goblin-card">
+          <h3>v1.1 — Lockdown <span class="pill plan">Plan</span></h3>
+          <p>Strict mode (<code>key-bitcher verify --strict</code>), file permission warnings on all platforms, and a pre-commit guard hook.</p>
+          <div class="meta"><span class="coins">🪙🪙🪙</span> 📌 next up</div>
+        </div>
+        <div class="goblin-card">
+          <h3>v1.2 — Multi-hoard <span class="pill plan">Plan</span></h3>
+          <p>Multiple S3/Backblaze buckets + profiles in <code>key-bitcher.toml</code>, plus profile switching for project-specific stacks.</p>
+          <div class="meta"><span class="coins">🪙🪙🪙</span> 📌 queued</div>
+        </div>
+        <div class="goblin-card">
+          <h3>v1.3 — The Shiny UI <span class="pill plan">Plan</span></h3>
+          <p>Terminal UI (ratatui) panel: view, copy, rotate and test keys without touching a shell. Includes the hoard status gauge.</p>
+          <div class="meta"><span class="coins">🪙🪙🪙🪙</span> 📌 queued</div>
+        </div>
+        <div class="goblin-card">
+          <h3>v1.4 — Auto-detect <span class="pill plan">Plan</span></h3>
+          <p>Auto-detect Wave environments, framework conventions and .env formats so <code>init</code> writes the right config the first time.</p>
+          <div class="meta"><span class="coins">🪙🪙</span> 🟢 stretch</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. PLATFORM ROADMAP -->
+    <section class="goblin-section reveal">
+      <h2>🖥️ Future Work — Every Platform the Goblin Covets</h2>
+      <p class="lede">Key-Bitcher is cross-platform Rust. The hoard is not complete until every shelf below is full.</p>
+
+      <div class="platform-row">
+        <div class="name">Windows <small>powershell, cmd, wt + key-bitcher.exe (native)</small></div>
+        <span class="pill wip">WIP</span>
+      </div>
+      <div class="progress-track" style="margin: -4px 0 18px;"><div class="progress-fill" style="--fill:85%"></div></div>
+
+      <div class="platform-row">
+        <div class="name">macOS <small>zsh, bash + key-bitcher (native arm64/x64)</small></div>
+        <span class="pill want">Wanted</span>
+      </div>
+      <div class="progress-track" style="margin: -4px 0 18px;"><div class="progress-fill" style="--fill:30%"></div></div>
+
+      <div class="platform-row">
+        <div class="name">Linux <small>bash, zsh, fish + systemd env drop-ins</small></div>
+        <span class="pill plan">Plan</span>
+      </div>
+      <div class="progress-track" style="margin: -4px 0 18px;"><div class="progress-fill" style="--fill:55%"></div></div>
+
+      <div class="platform-row">
+        <div class="name">WSL2 <small>bridge Windows + Linux hoards in one profile</small></div>
+        <span class="pill idea">Idea</span>
+      </div>
+      <div class="progress-track" style="margin: -4px 0 18px;"><div class="progress-fill" style="--fill:10%"></div></div>
+
+      <div class="platform-row">
+        <div class="name">VS Code <small>extension: secrets explorer, missing-var squiggles, hoard panel</small></div>
+        <span class="pill want">Wanted</span>
+      </div>
+      <div class="progress-track" style="margin: -4px 0 18px;"><div class="progress-fill" style="--fill:15%"></div></div>
+
+      <div class="platform-row">
+        <div class="name">JetBrains IDEs <small>plugin mirroring the VS Code panel</small></div>
+        <span class="pill want">Wanted</span>
+      </div>
+      <div class="progress-track" style="margin: -4px 0 18px;"><div class="progress-fill" style="--fill:5%"></div></div>
+
+      <div class="platform-row">
+        <div class="name">GitHub Actions / CI <small>action that injects hoard secrets + drift check gate</small></div>
+        <span class="pill plan">Plan</span>
+      </div>
+      <div class="progress-track" style="margin: -4px 0 18px;"><div class="progress-fill" style="--fill:40%"></div></div>
+
+      <div class="platform-row">
+        <div class="name">Web Dashboard <small>read-only vault view, rotation calendar, audit trail (hosted Pages)</small></div>
+        <span class="pill idea">Idea</span>
+      </div>
+      <div class="progress-track" style="margin: -4px 0 18px;"><div class="progress-fill" style="--fill:20%"></div></div>
+
+      <div class="platform-row">
+        <div class="name">Mobile Companion <small>push a key to your phone for 2FA pairing / emergency access</small></div>
+        <span class="pill idea">Idea</span>
+      </div>
+      <div class="progress-track" style="margin: -4px 0 18px;"><div class="progress-fill" style="--fill:5%"></div></div>
+    </section>
+
+    <!-- 5. WHAT'S NEEDED / TODO -->
+    <section class="goblin-section reveal">
+      <h2>⚒️ What's Needed (tick a coin, the hoard grows)</h2>
+      <p class="lede">Every box you tick stashes another coin. Cross-platform support needs hands on all shelves.</p>
+      <ul class="todo-list" id="todoList">
+        <li data-gain="1"><input type="checkbox"><span class="task">Rust integration tests for macOS + Linux runners in CI<small>runner matrix currently covers Ubuntu + Windows</small></span></li>
+        <li data-gain="1"><input type="checkbox"><span class="task">Package <code>key-bitcher</code> via Homebrew, Scoop &amp; cargo install<small>one command install everywhere</small></span></li>
+        <li data-gain="2"><input type="checkbox"><span class="task">Build the VS Code extension (hoard panel + missing-var diagnostics)<small>most wanted by contributors</small></span></li>
+        <li data-gain="1"><input type="checkbox"><span class="task">Write the <code>verify --strict</code> ruleset + per-OS permission audit<small>Windows ACLs, POSIX modes</small></span></li>
+        <li data-gain="1"><input type="checkbox"><span class="task">GitHub Action for injecting hoard secrets into workflows<small>companion repo under the same org</small></span></li>
+        <li data-gain="1"><input type="checkbox"><span class="task">Sample configs + templates for every platform shell<small>zsh/fish/bash/cmd profiles</small></span></li>
+        <li data-gain="2"><input type="checkbox"><span class="task">Document the S3/Backblaze object schema for self-hosted hoards<small>so anyone can run their own vault</small></span></li>
+      </ul>
+    </section>
+
+    <!-- 6. INFO -->
+    <section class="goblin-section reveal">
+      <h2>📜 Info Dump</h2>
+      <p class="lede">Everything else the goblin knows. Stash it all.</p>
+      <div class="goblin-info">
+        <div class="info-card">
+          <h4>Stack</h4>
+          <p>Rust 1.70+ · clap · tokio · serde · AWS SDK (S3) · Backblaze B2. Config in <code>key-bitcher.toml</code>.</p>
+        </div>
+        <div class="info-card">
+          <h4>Docs</h4>
+          <p>Full docs live at <a href="index.html" style="color:#52b788;">Key-Bitcher HQ</a> — getting started, commands, configuration, Wave integration, architecture, security, IDE setup, development.</p>
+        </div>
+        <div class="info-card">
+          <h4>Repo</h4>
+          <p><code>merlin-tribukait/KEY-BITCHER</code> — issues prefixed <code>HOARD:</code> feed this page. Watch, star, fork, hoard.</p>
+        </div>
+        <div class="info-card">
+          <h4>Ground Rules</h4>
+          <p>All keys belong strictly to the Goblin. Sharing across environments is forbidden. Look, but do not touch the vault. Attempted theft results in immediate token revocation.</p>
+        </div>
+        <div class="info-card">
+          <h4>Guiding Principle</h4>
+          <p>If it is not broke, do not touch it. If it is critically broke, the Bitch complains loudly. No smiling during key rotation.</p>
+        </div>
+        <div class="info-card">
+          <h4>Status</h4>
+          <p>Windows native: solid. Cross-platform: actively digged. UI + editors: treasure on the horizon. Your help = faster hoard.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="goblin-footer">
+      KEY-GOBLIN HOARD · a proud outpost of the KEY-BITCHER project · all keys mine · your keys also mine
+    </footer>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="effects.js"></script>
+  <script>
+    (function () {
+      var base = 1342;
+      var count = base;
+      var counter = document.getElementById('keyCount');
+      var toast = document.getElementById('toast');
+      var toastTimer = null;
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+      }
+
+      function bump(gain, msg) {
+        count += gain;
+        counter.textContent = count.toLocaleString();
+        counter.style.color = '#d4af37';
+        setTimeout(function () { counter.style.color = ''; }, 400);
+        showToast(msg);
+      }
+
+      var todo = document.getElementById('todoList');
+      todo.addEventListener('change', function (e) {
+        var li = e.target.closest('li');
+        if (!li) return;
+        if (e.target.checked) {
+          li.classList.add('done');
+          bump(parseInt(li.dataset.gain || '1', 10), '🪙 Clink! Idea stashed into the Goblin Hoard.');
+        } else {
+          li.classList.remove('done');
+          count -= parseInt(li.dataset.gain || '1', 10);
+          counter.textContent = count.toLocaleString();
+          showToast('🕳️ Coin returned to the pile. Fickle goblin.');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Command reference | Key-Bitcher</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="icon" href="assets/logo-badge.svg">
+</head>
+<body>
+  <div class="top-banner">
+    <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <span>&#9888;&#65039; WARNING: Key-Bitcher strictly labels developer incompetence. Do not ask for support.</span>
+    <div class="banner-actions">
+      <a href="key-goblin.html" class="banner-goblin-link" title="Switch to the Key-Goblin Hoard">&#129421; KEY-GOBLIN HOARD &#8599;</a>
+      <div class="bitch-toggle-wrap">
+        <span class="toggle-label">BITCH MODE:</span>
+        <label class="switch">
+          <input type="checkbox" id="bitchModeToggle">
+          <span class="slider round"></span>
+        </label>
+        <span id="bitchStatus" class="status-off">OFF</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <a href="index.html"><img src="assets/logo-badge.svg" alt="Key-Bitcher Logo" class="brand-img"></a>
+        <h2>KEY-BITCHER</h2>
+        <p class="tagline">Managing your keys. No apologies.</p>
+      </div>
+      
+<nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="getting-started.html" class="nav-link">Getting Started</a>
+        <a href="commands.html" class="nav-link active">Commands</a>
+        <a href="configuration.html" class="nav-link">Configuration</a>
+        <a href="wave-integration.html" class="nav-link">Wave Integration</a>
+        <a href="architecture.html" class="nav-link">Architecture</a>
+        <a href="security.html" class="nav-link">Security</a>
+        <a href="ide-integrations.html" class="nav-link">IDE & Terminal Integrations</a>
+        <a href="development.html" class="nav-link">Development</a>
+</nav>
+
+      <div class="nav-group-label">Roadmap</div>
+      <nav class="nav-menu">
+        <a href="key-goblin.html" class="nav-link">Key-Goblin Hoard &#129421;</a>
+      </nav>
+      <div class="repo-box">
+        <p>Repo target:</p>
+        <code>merlin-tribukait/KEY-BITCHER</code>
+        <a href="https://github.com/merlin-tribukait/KEY-BITCHER" target="_blank" class="btn-git">View on GitHub &#8599;</a>
+      </div>
+    </aside>
+    <main class="content docs-content">
+      <h1>Command reference</h1>
+  <div class="bitch-quote doc-quote reveal" aria-hidden="true"><span class="bq-mark">💬</span><p>Error message #42: "Your .env has opinions. Your .env is wrong."</p></div>
+<p>Every command, its flags, and when to reach for it.</p>
+<h2>Global flags</h2>
+<pre><code>key-bitcher [OPTIONS] [COMMAND]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--config &lt;PATH&gt;</code></td>
+<td><code>./key-bitcher.toml</code></td>
+<td>Path to the config file</td>
+</tr>
+<tr>
+<td><code>--auto-sync</code></td>
+<td>off</td>
+<td>Enables the automatic flow for sync commands</td>
+</tr>
+<tr>
+<td><code>--debug</code>, <code>-d</code></td>
+<td>off</td>
+<td>Verbose logging to stderr</td>
+</tr>
+<tr>
+<td><code>--log-file &lt;PATH&gt;</code></td>
+<td><code>key-bitcher.log</code></td>
+<td>Append-only log; rotated at <code>[logging] max_size_bytes</code></td>
+</tr>
+</tbody>
+</table>
+<h2>No command — the auto flow</h2>
+<p>Running <code>key-bitcher</code> with no command executes the full pipeline:</p>
+<ol>
+<li><code>sync-secrets</code> — pull canonical keys from S3 into <code>.env</code></li>
+<li><code>wave-import</code> — push them into the Wave secret store</li>
+<li><code>benchmark</code> — verify each provider still accepts the keys</li>
+</ol>
+<p><strong>Why:</strong> the daily refresh you will run most often is "make everything match<br />
+and tell me what's broken", which is exactly this sequence.</p>
+<h2>sync-secrets</h2>
+<p>Fetch secrets from the S3 bucket and write them to <code>.env</code>.</p>
+<pre><code>key-bitcher sync-secrets [--dry-run] [--print-exports]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--dry-run</code></td>
+<td>Show what would be written without touching <code>.env</code></td>
+</tr>
+<tr>
+<td><code>--print-exports</code></td>
+<td>Print shell <code>export KEY=value</code> lines instead of writing <code>.env</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why:</strong> <code>.env</code> is what your local tools (terminals, IDEs, AI agents) read.<br />
+This is the primary way a fresh machine gets its keys.</p>
+<h2>benchmark</h2>
+<p>Ping each configured model and report per-key/per-provider status.</p>
+<pre><code>key-bitcher benchmark
+</code></pre>
+<p>Models come from <code>[benchmark] models</code> in <code>key-bitcher.toml</code>. Providers<br />
+detected as expired (HTTP 401) are reported so you can rotate them.</p>
+<p><strong>Why:</strong> keys expire without warning. A 30-second health check turns "my agent<br />
+randomly stopped working" into "OpenRouter is expired, rotate it".</p>
+<h2>wave-import</h2>
+<p>Import <code>.env</code> keys into the Wave secret store.</p>
+<pre><code>key-bitcher wave-import
+</code></pre>
+<p>Requires the Wave terminal's <code>wsh</code> CLI (resolved from <code>PATH</code> or<br />
+<code>[wave] wsh_path</code>). Only keys that map to a known Wave provider preset are<br />
+imported.</p>
+<p><strong>Why:</strong> Wave agents run in a cloud sandbox that cannot read your local <code>.env</code>.<br />
+They read secrets from the Wave store, so importing keeps cloud sessions<br />
+configured without copying keys by hand.</p>
+<h2>import-md</h2>
+<p>Parse a <code>working.md</code> handout into structured secrets and upload them to the<br />
+bucket. The keys are parsed and uploaded <strong>in memory — nothing is written to<br />
+disk</strong>, so no intermediate <code>secrets.json</code> is left behind.</p>
+<pre><code>key-bitcher import-md --file PATH
+</code></pre>
+<p>The parser understands <code>## Section</code> headings (and <code>###</code> subsections),<br />
+<code>NAME: value</code> and <code>NAME=value</code> lines, and fenced code blocks. Section names<br />
+map to env-var names through the built-in table, overridable via<br />
+<code>[sections]</code> in the config.</p>
+<p><strong>Why:</strong> teams frequently receive keys as a chat dump. <code>import-md</code> turns an<br />
+unstructured paste into a versioned, uploaded, auditable key set — and it<br />
+catches copy/paste mistakes (duplicate keys, mismatched values) before they<br />
+reach the bucket.</p>
+<h2>list</h2>
+<p>List the secret <em>names</em> in the bucket.</p>
+<pre><code>key-bitcher list
+</code></pre>
+<p>Prints only names and value lengths — <strong>never values</strong>.</p>
+<p><strong>Why:</strong> a safe way to see what the canonical store contains (for example in<br />
+logs or on a shared screen) without exposing the keys themselves.</p>
+<h2>secure</h2>
+<p>Restrict file permissions on <code>.env</code> / <code>secrets.json</code> to the current user.</p>
+<pre><code>key-bitcher secure [--paths PATH ...]
+</code></pre>
+<p>Defaults to <code>.env</code> and <code>secrets.json</code>. On Windows this drops inherited ACLs<br />
+and grants read access to the current user only.</p>
+<p><strong>Why:</strong> on shared machines, other local users should not be able to read<br />
+your key files. This command makes the OS-level hardening a one-liner<br />
+instead of a manual <code>icacls</code> ritual.</p>
+<h2>upload</h2>
+<p>Upload a secrets JSON file to the bucket.</p>
+<pre><code>key-bitcher upload --file PATH
+</code></pre>
+<p><strong>Why:</strong> publishing a new canonical key set (after rotation) so every machine<br />
+can <code>sync-secrets</code> it.</p>
+<h2>validate</h2>
+<p>Dry-run checks that <code>.env</code> or the bucket is consistent.</p>
+<pre><code>key-bitcher validate --source env|s3
+</code></pre>
+<p>Checks format, duplicates, and structural expectations without writing or<br />
+uploading anything.</p>
+<p><strong>Why:</strong> a cheap pre-flight for CI or before a demo; catches a half-written<br />
+<code>.env</code> or a malformed bucket object.</p>
+<h2>wave-test</h2>
+<p>Self-test the Wave secret-store integration.</p>
+<pre><code>key-bitcher wave-test
+</code></pre>
+<p><strong>Why:</strong> isolates Wave connectivity problems so you don't confuse them with<br />
+bucket or <code>.env</code> problems.</p>
+<h2>s3-versioning</h2>
+<p>Verify the bucket has versioning enabled (recovery safety net).</p>
+<pre><code>key-bitcher s3-versioning
+</code></pre>
+<p><strong>Why:</strong> versioning means an accidental overwrite of the canonical key set is<br />
+recoverable. This command confirms the safety net exists.</p>
+<h2>s3-test</h2>
+<p>Connectivity test against the bucket (credentials + reachability).</p>
+<pre><code>key-bitcher s3-test
+</code></pre>
+<p><strong>Why:</strong> the first thing to run when <code>sync-secrets</code> fails — separates "bad<br />
+AWS keys" from "wrong bucket/region".</p>
+<h2>create-bucket</h2>
+<p>Create the bucket if it does not exist, with versioning enabled.</p>
+<pre><code>key-bitcher create-bucket
+</code></pre>
+<p><strong>Why:</strong> first-time setup on a new account, so the rest of the tool has a<br />
+place to write.</p>
+<h2>rust-setup</h2>
+<p>One-shot environment bootstrap.</p>
+<pre><code>key-bitcher rust-setup
+</code></pre>
+<p>Installs/checks the Rust toolchain, cargo tools, and the shell integrations<br />
+(<code>env-loader.ps1</code>, <code>install-path.ps1</code>).</p>
+<p><strong>Why:</strong> a fresh machine should be usable in one command instead of a wiki<br />
+page of manual steps.</p>
+    </main>
+  </div>
+  <script src="toggle.js"></script>
+  <script src="effects.js"></script>
+</body>
+</html>

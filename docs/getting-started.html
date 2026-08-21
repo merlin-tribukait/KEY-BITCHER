@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting started | Key-Bitcher</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="icon" href="assets/logo-badge.svg">
+</head>
+<body>
+  <div class="top-banner">
+    <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <span>&#9888;&#65039; WARNING: Key-Bitcher strictly labels developer incompetence. Do not ask for support.</span>
+    <div class="banner-actions">
+      <a href="key-goblin.html" class="banner-goblin-link" title="Switch to the Key-Goblin Hoard">&#129421; KEY-GOBLIN HOARD &#8599;</a>
+      <div class="bitch-toggle-wrap">
+        <span class="toggle-label">BITCH MODE:</span>
+        <label class="switch">
+          <input type="checkbox" id="bitchModeToggle">
+          <span class="slider round"></span>
+        </label>
+        <span id="bitchStatus" class="status-off">OFF</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <a href="index.html"><img src="assets/logo-badge.svg" alt="Key-Bitcher Logo" class="brand-img"></a>
+        <h2>KEY-BITCHER</h2>
+        <p class="tagline">Managing your keys. No apologies.</p>
+      </div>
+      
+<nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="getting-started.html" class="nav-link active">Getting Started</a>
+        <a href="commands.html" class="nav-link">Commands</a>
+        <a href="configuration.html" class="nav-link">Configuration</a>
+        <a href="wave-integration.html" class="nav-link">Wave Integration</a>
+        <a href="architecture.html" class="nav-link">Architecture</a>
+        <a href="security.html" class="nav-link">Security</a>
+        <a href="ide-integrations.html" class="nav-link">IDE & Terminal Integrations</a>
+        <a href="development.html" class="nav-link">Development</a>
+</nav>
+
+      <div class="nav-group-label">Roadmap</div>
+      <nav class="nav-menu">
+        <a href="key-goblin.html" class="nav-link">Key-Goblin Hoard &#129421;</a>
+      </nav>
+      <div class="repo-box">
+        <p>Repo target:</p>
+        <code>merlin-tribukait/KEY-BITCHER</code>
+        <a href="https://github.com/merlin-tribukait/KEY-BITCHER" target="_blank" class="btn-git">View on GitHub &#8599;</a>
+      </div>
+    </aside>
+    <main class="content docs-content">
+      <h1>Getting started</h1>
+  <div class="bitch-quote doc-quote reveal" aria-hidden="true"><span class="bq-mark">💬</span><p>Error message #42: "Your .env has opinions. Your .env is wrong."</p></div>
+<h2>Requirements</h2>
+<ul>
+<li>Rust toolchain 1.70+ (the tool is a native binary, no runtime needed after build)</li>
+<li>A private S3-compatible bucket (Backblaze B2 is the default and supported<br />
+  first-class; the bucket uses versioning for recovery)</li>
+<li>Windows, Linux, or macOS — the binary is portable</li>
+</ul>
+<h2>Install</h2>
+<pre><code class="language-powershell"># PowerShell
+.\build.ps1 -Profile release -Test
+</code></pre>
+<p>or manually:</p>
+<pre><code class="language-bash">cargo build --release
+</code></pre>
+<p>The binary is <code>target/release/key-bitcher</code>. On Windows the executable is<br />
+<code>key-bitcher.exe</code>.</p>
+<h3>Shell wrappers</h3>
+<p><code>integrations/</code> ships wrappers that put the tool on your <code>PATH</code> and load your<br />
+<code>.env</code> in every new terminal:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>integrations/system/env-loader.ps1</code></td>
+<td>Load <code>.env</code> into the current shell</td>
+</tr>
+<tr>
+<td><code>integrations/system/install-path.ps1</code></td>
+<td>Add the build output dir to <code>PATH</code></td>
+</tr>
+<tr>
+<td><code>integrations/terminal/key-bitcher.cmd</code></td>
+<td>Windows cmd wrapper</td>
+</tr>
+<tr>
+<td><code>integrations/terminal/key-bitcher.ps1</code></td>
+<td>PowerShell wrapper</td>
+</tr>
+<tr>
+<td><code>integrations/terminal/key-bitcher.sh</code></td>
+<td>Bash/Zsh wrapper</td>
+</tr>
+</tbody>
+</table>
+<p><code>key-bitcher rust-setup</code> automates the whole bootstrap on a fresh machine.</p>
+<h2>First run</h2>
+<ol>
+<li>Copy <code>.env.example</code> to <code>.env</code> and fill in:<br />
+   - <code>AWS_ACCESS_KEY_ID</code>, <code>AWS_SECRET_ACCESS_KEY</code>, <code>AWS_REGION</code> — bucket access<br />
+   - any provider keys you want managed</li>
+<li>Make sure <code>key-bitcher.toml</code> points at your team's bucket.</li>
+<li>Run <code>key-bitcher sync-secrets</code> to pull the canonical key set into <code>.env</code>.</li>
+<li>Run <code>key-bitcher benchmark</code> to confirm every provider accepts the keys.</li>
+<li>Run plain <code>key-bitcher</code> for the full daily flow.</li>
+</ol>
+<h2>Common workflows</h2>
+<p><strong>New machine:</strong> <code>rust-setup</code> → <code>sync-secrets</code> → <code>benchmark</code></p>
+<p><strong>Daily refresh:</strong> <code>key-bitcher</code> (no args)</p>
+<p><strong>After rotating a key:</strong> update the bucket (<code>upload</code>), then <code>sync-secrets</code><br />
+and <code>wave-import</code>.</p>
+<p><strong>Before trusting a handout:</strong> <code>import-md --file handout.md</code>, review the<br />
+parsed keys, then <code>upload</code> when it looks right.</p>
+    </main>
+  </div>
+  <script src="toggle.js"></script>
+  <script src="effects.js"></script>
+</body>
+</html>

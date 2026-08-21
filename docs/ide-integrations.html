@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IDE & terminal integrations | Key-Bitcher</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="icon" href="assets/logo-badge.svg">
+</head>
+<body>
+  <div class="top-banner">
+    <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <span>&#9888;&#65039; WARNING: Key-Bitcher strictly labels developer incompetence. Do not ask for support.</span>
+    <div class="banner-actions">
+      <a href="key-goblin.html" class="banner-goblin-link" title="Switch to the Key-Goblin Hoard">&#129421; KEY-GOBLIN HOARD &#8599;</a>
+      <div class="bitch-toggle-wrap">
+        <span class="toggle-label">BITCH MODE:</span>
+        <label class="switch">
+          <input type="checkbox" id="bitchModeToggle">
+          <span class="slider round"></span>
+        </label>
+        <span id="bitchStatus" class="status-off">OFF</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <a href="index.html"><img src="assets/logo-badge.svg" alt="Key-Bitcher Logo" class="brand-img"></a>
+        <h2>KEY-BITCHER</h2>
+        <p class="tagline">Managing your keys. No apologies.</p>
+      </div>
+      
+<nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="getting-started.html" class="nav-link">Getting Started</a>
+        <a href="commands.html" class="nav-link">Commands</a>
+        <a href="configuration.html" class="nav-link">Configuration</a>
+        <a href="wave-integration.html" class="nav-link">Wave Integration</a>
+        <a href="architecture.html" class="nav-link">Architecture</a>
+        <a href="security.html" class="nav-link">Security</a>
+        <a href="ide-integrations.html" class="nav-link active">IDE & Terminal Integrations</a>
+        <a href="development.html" class="nav-link">Development</a>
+</nav>
+
+      <div class="nav-group-label">Roadmap</div>
+      <nav class="nav-menu">
+        <a href="key-goblin.html" class="nav-link">Key-Goblin Hoard &#129421;</a>
+      </nav>
+      <div class="repo-box">
+        <p>Repo target:</p>
+        <code>merlin-tribukait/KEY-BITCHER</code>
+        <a href="https://github.com/merlin-tribukait/KEY-BITCHER" target="_blank" class="btn-git">View on GitHub &#8599;</a>
+      </div>
+    </aside>
+    <main class="content docs-content">
+      <h1>IDE &amp; terminal integrations</h1>
+  <div class="bitch-quote doc-quote reveal" aria-hidden="true"><span class="bq-mark">💬</span><p>Error message #42: "Your .env has opinions. Your .env is wrong."</p></div>
+<p>The tool is just a CLI, so any editor/terminal that can run a command can use<br />
+it. The repo ships ready-made integrations that add it as a task/action.</p>
+<h2>VS Code</h2>
+<p><code>.vscode/tasks.json</code> defines:</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key-bitcher: build</code></td>
+<td><code>cargo build --release</code></td>
+</tr>
+<tr>
+<td><code>key-bitcher: clippy</code></td>
+<td><code>cargo clippy --release -- -D warnings</code></td>
+</tr>
+<tr>
+<td><code>key-bitcher: test</code></td>
+<td><code>cargo test --release</code></td>
+</tr>
+<tr>
+<td><code>key-bitcher: fmt</code></td>
+<td><code>cargo fmt</code></td>
+</tr>
+<tr>
+<td><code>key-bitcher: auto (sync + wave + benchmark)</code></td>
+<td>runs the binary, no args</td>
+</tr>
+<tr>
+<td><code>key-bitcher: sync-secrets</code></td>
+<td>runs <code>sync-secrets</code></td>
+</tr>
+<tr>
+<td><code>key-bitcher: benchmark</code></td>
+<td>runs <code>benchmark</code></td>
+</tr>
+<tr>
+<td><code>key-bitcher: wave-import</code></td>
+<td>runs <code>wave-import</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>.vscode/extensions.json</code> recommends the Rust extension. Run a task with<br />
+<code>Ctrl+Shift+P</code> → <strong>Run Task</strong>.</p>
+<h2>Visual Studio (<code>.vs/tasks.vs.json</code>)</h2>
+<p>An <code>key-bitcher</code> task runs the auto flow inside VS, letting you refresh keys<br />
+without leaving the IDE.</p>
+<h2>JetBrains (RustRover, IntelliJ)</h2>
+<p><code>.idea/runConfigurations/</code> ships run configurations:</p>
+<ul>
+<li><code>key-bitcher-auto</code>, <code>key-bitcher-bench</code>, <code>key-bitcher-build</code>, <code>key-bitcher-clippy</code>,<br />
+<code>key-bitcher-sync</code>, <code>key-bitcher-test</code>, <code>key-bitcher-wave-import</code></li>
+</ul>
+<p>These appear in the run-configuration dropdown. The <code>.idea/*</code> folder is<br />
+gitignored except the run configurations, so each checkout keeps the configs<br />
+without committing editor churn.</p>
+<h2>Terminals</h2>
+<p><code>integrations/terminal/</code> provides wrappers:</p>
+<table>
+<thead>
+<tr>
+<th>Wrapper</th>
+<th>Shell</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key-bitcher.cmd</code></td>
+<td>cmd.exe</td>
+</tr>
+<tr>
+<td><code>key-bitcher.ps1</code></td>
+<td>PowerShell</td>
+</tr>
+<tr>
+<td><code>key-bitcher.sh</code></td>
+<td>Bash/Zsh</td>
+</tr>
+</tbody>
+</table>
+<p><code>integrations/system/env-loader.ps1</code> sources <code>.env</code> into the current session;<br />
+<code>integrations/system/install-path.ps1</code> adds the build output to <code>PATH</code> so<br />
+<code>key-bitcher</code> is always callable. <code>key-bitcher rust-setup</code> wires all of these up<br />
+automatically on a fresh machine.</p>
+    </main>
+  </div>
+  <script src="toggle.js"></script>
+  <script src="effects.js"></script>
+</body>
+</html>

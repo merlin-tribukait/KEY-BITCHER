@@ -1,0 +1,42 @@
+# key-bitcher configuration
+# Path to this file is passed with `--config` (default: ./key-bitcher.toml).
+
+[s3]
+# S3-compatible bucket (Backblaze B2 by default).
+bucket = "wave-secrets-bucket"
+region = "eu-central-003"
+object_key = "secrets/ai-keys.json"
+
+[secrets]
+# Where sync-secrets writes the fetched keys.
+output_env_file = ".env"
+# Refuse to overwrite an existing env file when false.
+overwrite_existing = true
+
+[wave]
+# Optional: explicit path to the `wsh` binary used to talk to the Wave secret
+# store. When omitted, `wsh` is resolved from PATH and then the default
+# Windows install location (%LOCALAPPDATA%\waveterm\Data\bin\wsh.exe).
+# wsh_path = "C:\\Users\\you\\AppData\\Local\\waveterm\\Data\\bin\\wsh.exe"
+
+[logging]
+# Rotate the append-only log file once it exceeds this size in bytes.
+# The previous file is kept as <log>.1. Default is 5 MiB.
+# max_size_bytes = 5242880
+
+[benchmark]
+# Models pinged by `benchmark` / the automatic flow, as `provider:model`.
+# Supported providers: openai, openrouter, anthropic, mistral, groq.
+models = [
+  "openai:gpt-4o-mini",
+  "openrouter:google/learnlm-1.5-pro-experimental",
+  "anthropic:claude-3.5-sonnet",
+  "mistral:mistral-large-latest",
+]
+max_output_tokens = 256
+request_timeout_secs = 30
+
+[sections]
+# Optional: override how `import-md` maps `## Section` headings in working.md
+# to env-var names. Any section listed here wins over the built-in mapping.
+# "My Custom Section" = ["MY_CUSTOM_KEY_1", "MY_CUSTOM_KEY_2"]

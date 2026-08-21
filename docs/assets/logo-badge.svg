@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#0b192c"/>
+    </radialGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe066"/>
+      <stop offset="50%" stop-color="#f4b41a"/>
+      <stop offset="100%" stop-color="#c4820e"/>
+    </linearGradient>
+    <linearGradient id="spotlight" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#ffea9f" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ffea9f" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- Outer Badge Ring -->
+  <circle cx="250" cy="250" r="240" fill="#0b192c" stroke="url(#goldGrad)" stroke-width="12"/>
+  <circle cx="250" cy="250" r="226" fill="url(#bgGrad)" stroke="#2b4c7e" stroke-width="4"/>
+  
+  <!-- Spotlights -->
+  <polygon points="120,340 180,180 230,180" fill="url(#spotlight)"/>
+  <polygon points="380,340 320,180 270,180" fill="url(#spotlight)"/>
+  
+  <!-- Pedestal -->
+  <ellipse cx="250" cy="340" rx="90" ry="22" fill="#801313" stroke="#4a0000" stroke-width="4"/>
+  <ellipse cx="250" cy="334" rx="80" ry="16" fill="#e63946"/>
+  
+  <!-- Floating Mini Keys -->
+  <g fill="url(#goldGrad)" opacity="0.7">
+    <path d="M100 140 a15 15 0 1 0 0-0.1 M100 145 l15 0 m-5 5 l0-10" stroke="#c4820e" stroke-width="3"/>
+    <path d="M380 120 a15 15 0 1 0 0-0.1 M380 125 l-15 0 m5 5 l0-10" stroke="#c4820e" stroke-width="3"/>
+    <path d="M80 260 a12 12 0 1 0 0-0.1 M80 263 l12 0" stroke="#c4820e" stroke-width="3"/>
+    <path d="M410 240 a12 12 0 1 0 0-0.1 M410 243 l-12 0" stroke="#c4820e" stroke-width="3"/>
+  </g>
+  
+  <!-- Key-Bitcher Character -->
+  <g id="bitcher-character">
+    <!-- Key Shaft -->
+    <rect x="238" y="210" width="24" height="110" rx="4" fill="url(#goldGrad)" stroke="#7a4e00" stroke-width="4"/>
+    <rect x="254" y="270" width="18" height="12" fill="url(#goldGrad)" stroke="#7a4e00" stroke-width="3"/>
+    <rect x="254" y="295" width="24" height="14" fill="url(#goldGrad)" stroke="#7a4e00" stroke-width="3"/>
+    
+    <!-- Key Head (Face) -->
+    <circle cx="250" cy="190" r="48" fill="url(#goldGrad)" stroke="#7a4e00" stroke-width="5"/>
+    <circle cx="250" cy="190" r="34" fill="#1e3a5f" stroke="#7a4e00" stroke-width="3"/>
+    <circle cx="250" cy="190" r="26" fill="url(#goldGrad)"/>
+    
+    <!-- Sunglasses -->
+    <path d="M218 178 Q235 174 250 178 Q265 174 282 178 L280 196 Q265 204 250 196 Q235 204 220 196 Z" fill="#111" stroke="#000" stroke-width="3"/>
+    <line x1="216" y1="182" x2="284" y2="182" stroke="#000" stroke-width="4"/>
+    <!-- Glare on glasses -->
+    <path d="M224 182 L236 194" stroke="#fff" stroke-width="2" opacity="0.8"/>
+    <path d="M256 182 L268 194" stroke="#fff" stroke-width="2" opacity="0.8"/>
+    
+    <!-- Angry Mouth -->
+    <path d="M234 214 Q250 204 266 214" stroke="#000" stroke-width="5" fill="none" stroke-linecap="round"/>
+    
+    <!-- Fedora Hat -->
+    <path d="M205 166 Q250 155 295 166 L305 168 Q250 145 195 168 Z" fill="#111" stroke="#000" stroke-width="2"/>
+    <path d="M218 165 C220 135 280 135 282 165 Z" fill="#222" stroke="#000" stroke-width="3"/>
+    <path d="M219 160 C235 156 265 156 281 160" stroke="#e63946" stroke-width="4" fill="none"/>
+    
+    <!-- Arms (Attitude pose) -->
+    <path d="M210 230 Q190 220 185 200" fill="none" stroke="#7a4e00" stroke-width="6" stroke-linecap="round"/>
+    <path d="M290 230 Q310 240 315 260" fill="none" stroke="#7a4e00" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Text Section -->
+  <path d="M 60 380 Q 250 430 440 380" id="textPath" fill="none"/>
+  <text font-family="Impact, Arial Black, sans-serif" font-weight="900" font-size="42" fill="url(#goldGrad)" text-anchor="middle" stroke="#000" stroke-width="2">
+    <textPath href="#textPath" startOffset="50%">KEY-BITCHER</textPath>
+  </text>
+  
+  <text x="250" y="445" font-family="Arial, sans-serif" font-weight="bold" font-size="16" fill="#f4a261" text-anchor="middle" letter-spacing="1">
+    MANAGING YOUR KEYS, NO APOLOGIES.
+  </text>
+</svg>

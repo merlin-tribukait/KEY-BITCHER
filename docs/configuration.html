@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuration | Key-Bitcher</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="icon" href="assets/logo-badge.svg">
+</head>
+<body>
+  <div class="top-banner">
+    <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <span>&#9888;&#65039; WARNING: Key-Bitcher strictly labels developer incompetence. Do not ask for support.</span>
+    <div class="banner-actions">
+      <a href="key-goblin.html" class="banner-goblin-link" title="Switch to the Key-Goblin Hoard">&#129421; KEY-GOBLIN HOARD &#8599;</a>
+      <div class="bitch-toggle-wrap">
+        <span class="toggle-label">BITCH MODE:</span>
+        <label class="switch">
+          <input type="checkbox" id="bitchModeToggle">
+          <span class="slider round"></span>
+        </label>
+        <span id="bitchStatus" class="status-off">OFF</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <a href="index.html"><img src="assets/logo-badge.svg" alt="Key-Bitcher Logo" class="brand-img"></a>
+        <h2>KEY-BITCHER</h2>
+        <p class="tagline">Managing your keys. No apologies.</p>
+      </div>
+      
+<nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="getting-started.html" class="nav-link">Getting Started</a>
+        <a href="commands.html" class="nav-link">Commands</a>
+        <a href="configuration.html" class="nav-link active">Configuration</a>
+        <a href="wave-integration.html" class="nav-link">Wave Integration</a>
+        <a href="architecture.html" class="nav-link">Architecture</a>
+        <a href="security.html" class="nav-link">Security</a>
+        <a href="ide-integrations.html" class="nav-link">IDE & Terminal Integrations</a>
+        <a href="development.html" class="nav-link">Development</a>
+</nav>
+
+      <div class="nav-group-label">Roadmap</div>
+      <nav class="nav-menu">
+        <a href="key-goblin.html" class="nav-link">Key-Goblin Hoard &#129421;</a>
+      </nav>
+      <div class="repo-box">
+        <p>Repo target:</p>
+        <code>merlin-tribukait/KEY-BITCHER</code>
+        <a href="https://github.com/merlin-tribukait/KEY-BITCHER" target="_blank" class="btn-git">View on GitHub &#8599;</a>
+      </div>
+    </aside>
+    <main class="content docs-content">
+      <h1>Configuration</h1>
+  <div class="bitch-quote doc-quote reveal" aria-hidden="true"><span class="bq-mark">💬</span><p>Error message #42: "Your .env has opinions. Your .env is wrong."</p></div>
+<p>Two files control the tool: <code>key-bitcher.toml</code> (runtime behavior) and<br />
+<code>.env</code> (your secrets). Both are read from the working directory by default.</p>
+<h2>key-bitcher.toml</h2>
+<pre><code class="language-toml">[s3]              # which bucket is the source of truth
+bucket = &quot;wave-secrets-bucket&quot;
+region = &quot;eu-central-003&quot;
+object_key = &quot;secrets/ai-keys.json&quot;
+
+[secrets]         # how .env is written
+output_env_file = &quot;.env&quot;
+overwrite_existing = true
+
+[wave]            # Wave secret store (optional)
+# wsh_path = &quot;C:\\Users\\you\\AppData\\Local\\waveterm\\Data\\bin\\wsh.exe&quot;
+
+[logging]         # rotating file logger (optional)
+# max_size_bytes = 5242880
+
+[benchmark]       # providers pinged by `benchmark`
+models = [
+  &quot;openai:gpt-4o-mini&quot;,
+  &quot;openrouter:google/learnlm-1.5-pro-experimental&quot;,
+  &quot;anthropic:claude-3.5-sonnet&quot;,
+  &quot;mistral:mistral-large-latest&quot;,
+]
+max_output_tokens = 256
+request_timeout_secs = 30
+
+[sections]        # override working.md section -&gt; env-var mapping (optional)
+# &quot;My Custom Section&quot; = [&quot;MY_CUSTOM_KEY_1&quot;, &quot;MY_CUSTOM_KEY_2&quot;]
+</code></pre>
+<h3>Section mapping</h3>
+<p><code>import-md</code> maps <code>## Section</code> headings in <code>working.md</code> to env-var names via a<br />
+built-in table. Entries in <code>[sections]</code> <strong>override</strong> the built-in mapping for<br />
+that heading. This is how you wire a handout whose headings don't match the<br />
+default naming.</p>
+<h3>Why these defaults</h3>
+<ul>
+<li><code>overwrite_existing = true</code> — a <code>sync-secrets</code> is meant to converge <code>.env</code><br />
+  to the bucket. Set <code>false</code> to refuse overwriting a local <code>.env</code> you edited.</li>
+<li><code>max_output_tokens</code> / <code>request_timeout_secs</code> — keep <code>benchmark</code> cheap and<br />
+  bounded; a hung model must not hang your daily flow.</li>
+</ul>
+<h2>.env</h2>
+<p>Plaintext <code>KEY=VALUE</code> pairs. See <code>.env.example</code> for the full template. The<br />
+real <code>.env</code> is gitignored; on shared machines lock it down with<br />
+<code>key-bitcher secure</code>.</p>
+<h3>Required keys</h3>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AWS_ACCESS_KEY_ID</code></td>
+<td>bucket access</td>
+</tr>
+<tr>
+<td><code>AWS_SECRET_ACCESS_KEY</code></td>
+<td>bucket access</td>
+</tr>
+<tr>
+<td><code>AWS_REGION</code></td>
+<td>bucket region (default <code>eu-central-003</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3>Provider keys</h3>
+<p><code>OPENAI_API_KEY</code>, <code>OPENROUTER_API_KEY</code>, <code>ANTHROPIC_API_KEY</code>,<br />
+<code>MISTRAL_API_KEY</code>, <code>GOOGLE_API_KEY</code>, <code>NVIDIA_API_KEY</code>, <code>DEEPSEEK_API_KEY</code>,<br />
+<code>CEREBRAS_API_KEY</code>, <code>COHERE_API_KEY</code>, <code>XAI_API_KEY</code>, <code>HF_TOKEN</code>,<br />
+<code>ELEVENLABS_API_KEY</code>, <code>DEEPGRAM_API_KEY</code>, <code>STABILITY_API_KEY</code>,<br />
+<code>OLLAMA_API_KEY</code>, <code>GROQ_API_KEY</code>, and <code>*_2</code>/<code>*_ALT</code>/<code>*_CURRENT</code> variants.</p>
+<p>Alternates exist because providers fail over: <code>benchmark</code> tries all keys per<br />
+provider, promotes the first working one, and notifies you. See<br />
+<a href="architecture.html">Architecture</a>.</p>
+<h2>How paths are resolved</h2>
+<ul>
+<li>Config: <code>--config &lt;PATH&gt;</code> else <code>./key-bitcher.toml</code>.</li>
+<li><code>wsh</code>: <code>[wave] wsh_path</code> else <code>PATH</code> lookup, else the default Windows<br />
+  install location (<code>%LOCALAPPDATA%\waveterm\Data\bin\wsh.exe</code>).</li>
+<li>Log file: <code>--log-file &lt;PATH&gt;</code> else <code>key-bitcher.log</code> in the working dir.</li>
+</ul>
+    </main>
+  </div>
+  <script src="toggle.js"></script>
+  <script src="effects.js"></script>
+</body>
+</html>

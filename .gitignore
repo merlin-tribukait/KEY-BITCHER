@@ -1,0 +1,9 @@
+/target/
+**/*.log
+.env
+secrets.json
+key-bitcher-notifications.md
+.junie/
+.DS_Store
+.idea/*
+!.idea/runConfigurations/

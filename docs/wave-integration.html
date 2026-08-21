@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wave integration | Key-Bitcher</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="icon" href="assets/logo-badge.svg">
+</head>
+<body>
+  <div class="top-banner">
+    <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <span>&#9888;&#65039; WARNING: Key-Bitcher strictly labels developer incompetence. Do not ask for support.</span>
+    <div class="banner-actions">
+      <a href="key-goblin.html" class="banner-goblin-link" title="Switch to the Key-Goblin Hoard">&#129421; KEY-GOBLIN HOARD &#8599;</a>
+      <div class="bitch-toggle-wrap">
+        <span class="toggle-label">BITCH MODE:</span>
+        <label class="switch">
+          <input type="checkbox" id="bitchModeToggle">
+          <span class="slider round"></span>
+        </label>
+        <span id="bitchStatus" class="status-off">OFF</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <a href="index.html"><img src="assets/logo-badge.svg" alt="Key-Bitcher Logo" class="brand-img"></a>
+        <h2>KEY-BITCHER</h2>
+        <p class="tagline">Managing your keys. No apologies.</p>
+      </div>
+      
+<nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="getting-started.html" class="nav-link">Getting Started</a>
+        <a href="commands.html" class="nav-link">Commands</a>
+        <a href="configuration.html" class="nav-link">Configuration</a>
+        <a href="wave-integration.html" class="nav-link active">Wave Integration</a>
+        <a href="architecture.html" class="nav-link">Architecture</a>
+        <a href="security.html" class="nav-link">Security</a>
+        <a href="ide-integrations.html" class="nav-link">IDE & Terminal Integrations</a>
+        <a href="development.html" class="nav-link">Development</a>
+</nav>
+
+      <div class="nav-group-label">Roadmap</div>
+      <nav class="nav-menu">
+        <a href="key-goblin.html" class="nav-link">Key-Goblin Hoard &#129421;</a>
+      </nav>
+      <div class="repo-box">
+        <p>Repo target:</p>
+        <code>merlin-tribukait/KEY-BITCHER</code>
+        <a href="https://github.com/merlin-tribukait/KEY-BITCHER" target="_blank" class="btn-git">View on GitHub &#8599;</a>
+      </div>
+    </aside>
+    <main class="content docs-content">
+      <h1>Wave integration</h1>
+  <div class="bitch-quote doc-quote reveal" aria-hidden="true"><span class="bq-mark">💬</span><p>Error message #42: "Your .env has opinions. Your .env is wrong."</p></div>
+<p><a href="https://waveterm.dev">Wave</a> is a terminal where AI agents run <strong>in a cloud<br />
+sandbox</strong> — they cannot read your local <code>.env</code>. Instead they read secrets<br />
+from the Wave secret store, which is synced to your Wave account.</p>
+<p><code>key-bitcher</code> bridges the two: keys you manage live in the bucket, land in<br />
+<code>.env</code> via <code>sync-secrets</code>, and are pushed into Wave via <code>wave-import</code>.</p>
+<h2>Prerequisites</h2>
+<ul>
+<li>The Wave desktop app installed and logged in.</li>
+<li><code>wsh</code> (Wave shell) on <code>PATH</code>, or set <code>[wave] wsh_path</code> in<br />
+<code>key-bitcher.toml</code>:</li>
+</ul>
+<p><code>toml
+  [wave]
+  wsh_path = "C:\\Users\\you\\AppData\\Local\\waveterm\\Data\\bin\\wsh.exe"</code></p>
+<h2>Commands</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wave-import</code></td>
+<td>Import <code>.env</code> keys into the Wave secret store</td>
+</tr>
+<tr>
+<td><code>wave-test</code></td>
+<td>Self-test the Wave integration (isolates Wave problems)</td>
+</tr>
+</tbody>
+</table>
+<h2>Which keys get imported</h2>
+<p>Only keys that map to a known Wave provider preset are imported. This is<br />
+intentional: it avoids junking the store with every alternate key variant.<br />
+Use <code>wave-test</code> to see exactly which names Wave expects and which of your keys<br />
+match.</p>
+<h2>When to run it</h2>
+<ul>
+<li>After <code>sync-secrets</code> on a machine whose cloud agents need the new keys<br />
+  (the no-arg auto flow already chains <code>sync-secrets</code> → <code>wave-import</code> →<br />
+<code>benchmark</code>).</li>
+<li>After rotating a provider key.</li>
+<li>When a Wave agent reports missing/expired credentials.</li>
+</ul>
+<h2>Verification</h2>
+<pre><code class="language-powershell">key-bitcher wave-test     # is the store reachable, what presets exist
+key-bitcher wave-import   # push current .env keys
+</code></pre>
+<p><code>wave-test</code> is the right first step if imports fail: it separates "Wave is<br />
+not reachable / not logged in" from "your key names don't match a preset".</p>
+    </main>
+  </div>
+  <script src="toggle.js"></script>
+  <script src="effects.js"></script>
+</body>
+</html>

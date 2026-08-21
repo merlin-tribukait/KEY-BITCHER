@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <radialGradient id="goblinBg" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#1b4332"/>
+      <stop offset="100%" stop-color="#081c15"/>
+    </radialGradient>
+    <linearGradient id="goldCoins" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe066"/>
+      <stop offset="100%" stop-color="#d4af37"/>
+    </linearGradient>
+  </defs>
+  <!-- Outer Badge Ring -->
+  <circle cx="250" cy="250" r="240" fill="#081c15" stroke="#d4af37" stroke-width="12"/>
+  <circle cx="250" cy="250" r="226" fill="url(#goblinBg)" stroke="#2d6a4f" stroke-width="4"/>
+  
+  <!-- Coin Pile -->
+  <ellipse cx="250" cy="350" rx="140" ry="40" fill="#b5838d" opacity="0.2"/>
+  <g fill="url(#goldCoins)" stroke="#745214" stroke-width="2">
+    <ellipse cx="200" cy="350" rx="18" ry="8"/>
+    <ellipse cx="230" cy="355" rx="20" ry="9"/>
+    <ellipse cx="260" cy="348" rx="22" ry="10"/>
+    <ellipse cx="290" cy="352" rx="19" ry="8"/>
+    <ellipse cx="170" cy="360" rx="22" ry="9"/>
+    <ellipse cx="210" cy="365" rx="25" ry="11"/>
+    <ellipse cx="250" cy="362" rx="28" ry="12"/>
+    <ellipse cx="300" cy="364" rx="22" ry="10"/>
+    <ellipse cx="330" cy="358" rx="18" ry="8"/>
+  </g>
+  
+  <!-- Goblin Character -->
+  <g id="goblin-character">
+    <!-- Hood & Head -->
+    <path d="M170 180 Q250 110 330 180 Q350 240 320 270 Q250 300 180 270 Z" fill="#2d6a4f" stroke="#1b4332" stroke-width="4"/>
+    <!-- Goblin Face -->
+    <path d="M190 190 Q250 170 310 190 Q320 240 250 265 Q180 240 190 190 Z" fill="#52b788"/>
+    <!-- Pointy Ears -->
+    <path d="M180 200 L110 170 L170 220 Z" fill="#52b788" stroke="#1b4332" stroke-width="3"/>
+    <path d="M320 200 L390 170 L330 220 Z" fill="#52b788" stroke="#1b4332" stroke-width="3"/>
+    <!-- Glowing Yellow Eyes -->
+    <ellipse cx="220" cy="210" rx="16" ry="12" fill="#ffb703" stroke="#000" stroke-width="2"/>
+    <circle cx="222" cy="210" r="5" fill="#000"/>
+    <ellipse cx="280" cy="210" rx="16" ry="12" fill="#ffb703" stroke="#000" stroke-width="2"/>
+    <circle cx="278" cy="210" r="5" fill="#000"/>
+    <!-- Mischievous Grin with Fangs -->
+    <path d="M210 240 Q250 265 290 240 Q250 280 210 240 Z" fill="#2d0c03"/>
+    <polygon points="225,242 232,252 238,243" fill="#fff"/>
+    <polygon points="262,243 268,252 275,242" fill="#fff"/>
+    <!-- Giant Skeleton Key held by Goblin -->
+    <path d="M140 290 L360 210" stroke="url(#goldCoins)" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="130" cy="295" r="28" fill="none" stroke="url(#goldCoins)" stroke-width="12"/>
+    <path d="M340 217 L355 212 L360 227 M325 222 L335 235" stroke="url(#goldCoins)" stroke-width="8" stroke-linecap="square"/>
+  </g>
+  
+  <!-- Banner / Text -->
+  <path d="M 70 120 Q 250 50 430 120" id="goblinTextPath" fill="none"/>
+  <text font-family="Impact, Arial Black, sans-serif" font-weight="900" font-size="44" fill="url(#goldCoins)" text-anchor="middle" stroke="#000" stroke-width="2">
+    <textPath href="#goblinTextPath" startOffset="50%">KEY-GOBLIN</textPath>
+  </text>
+  
+  <text x="250" y="440" font-family="Arial, sans-serif" font-weight="bold" font-size="18" fill="#74c69d" text-anchor="middle" letter-spacing="2">
+    YOUR KEYRING. ALL MINE.
+  </text>
+</svg>

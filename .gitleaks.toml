@@ -1,0 +1,8 @@
+title = "key-bitcher gitleaks configuration"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Environment template whose keys are intentionally empty placeholders"
+paths = [".env.example"]

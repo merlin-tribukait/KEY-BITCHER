@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KEY-BITCHER | Official Documentation & Complaint Bureau</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="icon" href="assets/logo-badge.svg">
+</head>
+<body>
+  <div class="top-banner">
+    <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <span>⚠️ WARNING: Key-Bitcher strictly labels developer incompetence. Do not ask for support.</span>
+    <div class="banner-actions">
+      <a href="key-goblin.html" class="banner-goblin-link" title="Switch to the Key-Goblin Hoard">🪙 KEY-GOBLIN HOARD ↗</a>
+      <div class="bitch-toggle-wrap">
+        <span class="toggle-label">BITCH MODE:</span>
+        <label class="switch">
+          <input type="checkbox" id="bitchModeToggle">
+          <span class="slider round"></span>
+        </label>
+        <span id="bitchStatus" class="status-off">OFF</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="assets/logo-badge.svg" alt="Key-Bitcher Logo" class="brand-img">
+        <h2>KEY-BITCHER</h2>
+        <p class="tagline">Managing your keys. No apologies.</p>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="#intro" class="nav-link active">01. Overview</a>
+        <a href="#installation" class="nav-link">02. Quick Install</a>
+        <a href="#config" class="nav-link">03. Configuration</a>
+        <a href="#rules" class="nav-link">04. Rules of Conduct</a>
+        <a href="#grievance" class="nav-link">05. Grievance Dept.</a>
+        <a href="#assets" class="nav-link">06. Asset Pack</a>
+      </nav>
+
+      <div class="nav-group-label">Documentation</div>
+      <nav class="nav-menu">
+        <a href="getting-started.html" class="nav-link">Getting Started</a>
+        <a href="commands.html" class="nav-link">Command Reference</a>
+        <a href="configuration.html" class="nav-link">Configuration</a>
+        <a href="wave-integration.html" class="nav-link">Wave Integration</a>
+        <a href="architecture.html" class="nav-link">Architecture</a>
+        <a href="security.html" class="nav-link">Security</a>
+        <a href="ide-integrations.html" class="nav-link">IDE &amp; Terminal</a>
+        <a href="development.html" class="nav-link">Development</a>
+      </nav>
+
+      <div class="nav-group-label">Roadmap</div>
+      <nav class="nav-menu">
+        <a href="key-goblin.html" class="nav-link">Key-Goblin Hoard 🪙</a>
+      </nav>
+
+      <div class="repo-box">
+        <p>Repo target:</p>
+        <code>merlin-tribukait/KEY-BITCHER</code>
+        <a href="https://github.com/merlin-tribukait/KEY-BITCHER" target="_blank" class="btn-git">View on GitHub ↗</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+      <!-- HERO -->
+      <section id="intro" class="section hero-section reveal">
+        <div class="hero-badge-wrap">
+          <img src="assets/logo-badge.svg" alt="Badge" class="hero-badge">
+        </div>
+        <div class="hero-text">
+          <h1 class="glitch-title">KEY-BITCHER: OFFICIAL DOCS</h1>
+          <p class="hero-sub">The ultimate AI environment variable auditor with an attitude problem.</p>
+          <div class="callout-box">
+            <span class="callout-icon">💬</span>
+            <p id="dynamicQuote">"If it's broken, expect her to complain. If it works, stop touching it."</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- KEY-GOBLIN TEASER -->
+      <section id="goblin" class="section goblin-teaser reveal">
+        <div class="goblin-teaser-card">
+          <img src="assets/goblin/logo-badge.svg" alt="Key-Goblin">
+          <div>
+            <h3>KEY-GOBLIN HOARD</h3>
+            <p>The roadmap lair behind the Bitch: ideas vault, plans pit, platform future work and a very actionable TODO. Every shiny key ends up here.</p>
+            <a href="key-goblin.html" class="btn-goblin">ENTER THE HOARD ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- BITCH JOKE -->
+      <div class="bitch-quote reveal" aria-hidden="true"><span class="bq-mark">💬</span><p>The Bitch once rotated a key mid-deploy. Twice. Nobody rotates keys anymore.</p></div>
+
+      <!-- INSTALLATION -->
+      <section id="installation" class="section reveal">
+        <h2>02. Quick Installation</h2>
+        <p>You need a Rust toolchain (1.70+). Install via the build script (recommended):</p>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode('cmd1')">Copy</button>
+          <code id="cmd1">.\build.ps1 -Profile release -Test</code>
+        </div>
+        <p>Or straight from source:</p>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode('cmd2')">Copy</button>
+          <code id="cmd2">cargo build --release</code>
+        </div>
+        <p>Full walkthrough in <a href="getting-started.html">Getting Started</a>.</p>
+      </section>
+
+      <!-- BITCH JOKE -->
+      <div class="bitch-quote reveal" aria-hidden="true"><span class="bq-mark">💬</span><p>You don't have a bug. You have a feature that committed its own API key.</p></div>
+
+      <!-- CONFIGURATION -->
+      <section id="config" class="section reveal">
+        <h2>03. Configuration</h2>
+        <p>Place this <code>key-bitcher.toml</code> in your project root. <strong>DO NOT EDIT RANDOM KEYS.</strong></p>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode('tomlConfig')">Copy</button>
+          <pre><code id="tomlConfig">[s3]
+bucket = "wave-secrets-bucket"
+region = "eu-central-003"
+object_key = "secrets/ai-keys.json"
+
+[logging]
+max_size_bytes = 5242880</code></pre>
+        </div>
+        <p>Full reference and the <code>[secrets]</code> / <code>[wave]</code> / <code>[sections]</code>
+          tables in <a href="configuration.html">Configuration</a>.</p>
+      </section>
+
+      <!-- BITCH JOKE -->
+      <div class="bitch-quote reveal" aria-hidden="true"><span class="bq-mark">💬</span><p>Error message #42: "Your .env has opinions. Your .env is wrong."</p></div>
+
+      <!-- RULES OF CONDUCT -->
+      <section id="rules" class="section reveal">
+        <h2>04. Rules of Conduct (Bitch Edition)</h2>
+        <ul class="rules-list">
+          <li><strong>Rule 1:</strong> If it is not broke, do not touch her.</li>
+          <li><strong>Rule 2:</strong> If it is critically broke, expect she will complain loudly.</li>
+          <li><strong>Rule 3:</strong> This plugin is strictly for labeling developer incompetence.</li>
+          <li><strong>Rule 4:</strong> Absolutely NO smiling allowed during key rotation.</li>
+          <li><strong>Rule 5:</strong> Errors are deliberate to build your personal character.</li>
+        </ul>
+      </section>
+
+      <!-- BITCH JOKE -->
+      <div class="bitch-quote reveal" aria-hidden="true"><span class="bq-mark">💬</span><p>"It works on my machine" — yes, she heard that, and she logged it. Publicly.</p></div>
+
+      <!-- GRIEVANCE -->
+      <section id="grievance" class="section reveal">
+        <h2>05. Grievance & Complaint Department</h2>
+        <p>Have a complaint about a missing variable or a mean error message? Type it below. It will be sent straight to <code>/dev/null</code>.</p>
+
+        <form id="grievanceForm" class="grievance-form">
+          <label for="userEmail">Your Email (So we know who to ignore):</label>
+          <input type="email" id="userEmail" required placeholder="dev@clueless.com">
+
+          <label for="complaintText">Detailed Grievance / Incompetence Report:</label>
+          <textarea id="complaintText" rows="4" required placeholder="Key-Bitcher yelled at me because I committed my API key..."></textarea>
+
+          <button type="submit" class="btn-submit">FILE GRIEVANCE</button>
+        </form>
+
+        <div id="grievanceResponse" class="response-modal hidden">
+          <h4>Grievance Status: DISCARDED 🗑️</h4>
+          <p id="modalMsg">Grievance filed successfully. It's your fault anyway.</p>
+          <button onclick="closeModal()" class="btn-close">I Accept Blame</button>
+        </div>
+      </section>
+
+      <!-- BITCH JOKE -->
+      <div class="bitch-quote reveal" aria-hidden="true"><span class="bq-mark">💬</span><p>The vault isn't locked for security. It's locked to keep your commits out of it.</p></div>
+
+      <!-- ASSETS -->
+      <section id="assets" class="section reveal">
+        <h2>06. Asset Downloads</h2>
+        <p>Download original SVGs and branding assets for your custom dashboards.</p>
+        <div class="asset-grid">
+          <div class="asset-card">
+            <img src="assets/logo-badge.svg" alt="Badge">
+            <h4>Full Badge Mark</h4>
+            <a href="assets/logo-badge.svg" download class="btn-dl">DOWNLOAD SVG</a>
+          </div>
+          <div class="asset-card">
+            <img src="assets/icon-active.svg" alt="Active Key">
+            <h4>Active Key Icon</h4>
+            <a href="assets/icon-active.svg" download class="btn-dl">DOWNLOAD SVG</a>
+          </div>
+          <div class="asset-card">
+            <img src="assets/icon-revoked.svg" alt="Revoked Key">
+            <h4>Revoked Key Icon</h4>
+            <a href="assets/icon-revoked.svg" download class="btn-dl">DOWNLOAD SVG</a>
+          </div>
+          <div class="asset-card">
+            <img src="assets/icon-secure.svg" alt="Secure Key">
+            <h4>Secure Key Icon</h4>
+            <a href="assets/icon-secure.svg" download class="btn-dl">DOWNLOAD SVG</a>
+          </div>
+          <div class="asset-card">
+            <img src="assets/icon-cloud.svg" alt="Cloud Key">
+            <h4>Cloud Key Icon</h4>
+            <a href="assets/icon-cloud.svg" download class="btn-dl">DOWNLOAD SVG</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="effects.js"></script>
+</body>
+</html>

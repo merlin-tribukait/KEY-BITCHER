@@ -1,0 +1,172 @@
+/* Markdown prose styles for the generated doc pages. */
+.docs-content {
+  font-size: 16px;
+  line-height: 1.75;
+}
+.docs-content h1 {
+  color: var(--accent-gold);
+  font-size: 28px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  margin: 10px 0 20px;
+  position: relative;
+  animation: glitchFlicker 4s infinite steps(1);
+}
+.docs-content h2 {
+  color: var(--accent-gold);
+  font-size: 22px;
+  margin: 30px 0 12px;
+  position: relative;
+}
+.docs-content h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 44px;
+  background: var(--accent-gold);
+  animation: underlineGrow 0.6s ease-out both;
+}
+@keyframes underlineGrow {
+  from { width: 0; opacity: 0.4; }
+  to   { width: 44px; opacity: 1; }
+}
+.docs-content h3 {
+  color: var(--accent-orange);
+  font-size: 18px;
+  margin: 24px 0 10px;
+}
+.docs-content h4 {
+  color: var(--accent-orange);
+  font-size: 16px;
+  margin: 18px 0 8px;
+}
+.docs-content p {
+  margin: 12px 0;
+}
+.docs-content a {
+  color: var(--accent-gold);
+  text-decoration: none;
+}
+.docs-content a:hover {
+  text-decoration: underline;
+}
+.docs-content ul,
+.docs-content ol {
+  margin: 12px 0 12px 26px;
+}
+.docs-content li {
+  margin: 6px 0;
+}
+.docs-content li > ul,
+.docs-content li > ol {
+  margin-bottom: 0;
+}
+.docs-content code {
+  background: #000;
+  color: var(--accent-orange);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.88em;
+}
+.docs-content pre {
+  background: #000;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  overflow-x: auto;
+  margin: 16px 0;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.docs-content pre:hover {
+  border-color: var(--accent-gold);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+}
+.docs-content pre code {
+  background: none;
+  padding: 0;
+  color: #d6e2f0;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.docs-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 16px 0;
+  display: block;
+  overflow-x: auto;
+}
+.docs-content th,
+.docs-content td {
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+.docs-content th {
+  background: var(--bg-sidebar);
+  color: var(--accent-gold);
+}
+.docs-content blockquote {
+  border-left: 4px solid var(--accent-gold);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px 16px;
+  margin: 16px 0;
+  font-style: italic;
+}
+.docs-content blockquote code {
+  font-style: normal;
+}
+.docs-content hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 24px 0;
+}
+.docs-content img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+.docs-content .footnote {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.docs-content strong {
+  color: var(--accent-gold);
+}
+
+/* Prose blocks animate in on scroll (only when JS is active) */
+html.js .docs-content h2,
+html.js .docs-content h3,
+html.js .docs-content p,
+html.js .docs-content ul,
+html.js .docs-content ol,
+html.js .docs-content table,
+html.js .docs-content pre,
+html.js .docs-content blockquote {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+html.js .docs-content h2.revealed,
+html.js .docs-content h3.revealed,
+html.js .docs-content p.revealed,
+html.js .docs-content ul.revealed,
+html.js .docs-content ol.revealed,
+html.js .docs-content table.revealed,
+html.js .docs-content pre.revealed,
+html.js .docs-content blockquote.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.docs-content h1 { opacity: 1; transform: none; }
+
+.docs-content tbody tr { transition: background-color 0.2s ease; }
+.docs-content tbody tr:hover { background-color: rgba(244, 178, 26, 0.06); }
+
+@media (max-width: 640px) {
+  .docs-content { font-size: 15px; }
+  .docs-content h1 { font-size: 23px; }
+  .docs-content h2 { font-size: 19px; }
+}

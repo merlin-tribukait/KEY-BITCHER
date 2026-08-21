@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security | Key-Bitcher</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="icon" href="assets/logo-badge.svg">
+</head>
+<body>
+  <div class="top-banner">
+    <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <span>&#9888;&#65039; WARNING: Key-Bitcher strictly labels developer incompetence. Do not ask for support.</span>
+    <div class="banner-actions">
+      <a href="key-goblin.html" class="banner-goblin-link" title="Switch to the Key-Goblin Hoard">&#129421; KEY-GOBLIN HOARD &#8599;</a>
+      <div class="bitch-toggle-wrap">
+        <span class="toggle-label">BITCH MODE:</span>
+        <label class="switch">
+          <input type="checkbox" id="bitchModeToggle">
+          <span class="slider round"></span>
+        </label>
+        <span id="bitchStatus" class="status-off">OFF</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <a href="index.html"><img src="assets/logo-badge.svg" alt="Key-Bitcher Logo" class="brand-img"></a>
+        <h2>KEY-BITCHER</h2>
+        <p class="tagline">Managing your keys. No apologies.</p>
+      </div>
+      
+<nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="getting-started.html" class="nav-link">Getting Started</a>
+        <a href="commands.html" class="nav-link">Commands</a>
+        <a href="configuration.html" class="nav-link">Configuration</a>
+        <a href="wave-integration.html" class="nav-link">Wave Integration</a>
+        <a href="architecture.html" class="nav-link">Architecture</a>
+        <a href="security.html" class="nav-link active">Security</a>
+        <a href="ide-integrations.html" class="nav-link">IDE & Terminal Integrations</a>
+        <a href="development.html" class="nav-link">Development</a>
+</nav>
+
+      <div class="nav-group-label">Roadmap</div>
+      <nav class="nav-menu">
+        <a href="key-goblin.html" class="nav-link">Key-Goblin Hoard &#129421;</a>
+      </nav>
+      <div class="repo-box">
+        <p>Repo target:</p>
+        <code>merlin-tribukait/KEY-BITCHER</code>
+        <a href="https://github.com/merlin-tribukait/KEY-BITCHER" target="_blank" class="btn-git">View on GitHub &#8599;</a>
+      </div>
+    </aside>
+    <main class="content docs-content">
+      <h1>Security</h1>
+  <div class="bitch-quote doc-quote reveal" aria-hidden="true"><span class="bq-mark">💬</span><p>Error message #42: "Your .env has opinions. Your .env is wrong."</p></div>
+<p>This tool moves real API keys. This page is the threat model and the<br />
+operating rules that keep it safe.</p>
+<h2>Threat model</h2>
+<table>
+<thead>
+<tr>
+<th>Threat</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Key leaked into the repo</td>
+<td><code>.env</code>, <code>secrets.json</code>, <code>key-bitcher-notifications.md</code>, logs are gitignored; CI runs gitleaks and fails on any finding</td>
+</tr>
+<tr>
+<td>Local user reads your <code>.env</code></td>
+<td>Restrict permissions (see below); the tool documents but cannot enforce host OS ACLs</td>
+</tr>
+<tr>
+<td>Bucket keys compromise</td>
+<td>Use a scoped keypair (bucket-only), never the B2 master key, in <code>.env</code></td>
+</tr>
+<tr>
+<td>Bad overwrite of canonical key set</td>
+<td>Bucket versioning enabled; <code>s3-versioning</code> verifies it</td>
+</tr>
+<tr>
+<td>Expired/rotated key promoted by accident</td>
+<td><code>benchmark</code> tries all alternates and promotes only a <em>working</em> key</td>
+</tr>
+<tr>
+<td>Copy/paste error in a handout</td>
+<td><code>import-md</code> structural validation + <code>validate</code> dry-run</td>
+</tr>
+<tr>
+<td>Supply-chain (TLS, deps)</td>
+<td><code>rustls-ring</code> (no OpenSSL), Dependabot for Cargo + Actions</td>
+</tr>
+</tbody>
+</table>
+<h2>Operating rules</h2>
+<h3>1. Never commit secrets</h3>
+<p>The real <code>.env</code>, generated <code>secrets.json</code>, notification files, and log files<br />
+are gitignored. <code>.env.example</code> is a template with empty values only. CI's<br />
+gitleaks step is a second line of defense.</p>
+<h3>2. Use scoped bucket keys</h3>
+<p>Put a <strong>bucket-scoped</strong> application key in <code>.env</code>, not the Backblaze master<br />
+key. A master key in a <code>.env</code> that leaks gives away every bucket you own; a<br />
+scoped key limits the blast radius to one bucket.</p>
+<h3>3. Restrict file permissions</h3>
+<p>Use the built-in command instead of manual ACLs:</p>
+<pre><code class="language-powershell">key-bitcher secure            # restricts .env and secrets.json to the current user
+key-bitcher secure --paths C:\path\to\.env
+</code></pre>
+<p>On shared machines, this stops other local users from reading your keys.</p>
+<h3>4. Rotate when something leaks</h3>
+<p>A key that appears in a commit, a chat log, or a screenshot is burned —<br />
+regardless of "we deleted it". Revoke at the provider, remove it from the<br />
+bucket, and re-upload. See <a href="security.html"><code>SECURITY.md</code></a>.</p>
+<h3>5. Delete intermediate files</h3>
+<p><code>secrets.json</code> is an intermediate artifact. <code>import-md</code> uploads in-memory and<br />
+never writes it; if you produced one another way, delete it after a<br />
+successful <code>upload</code>, and run <code>key-bitcher secure</code> to lock down any copies that do<br />
+exist.</p>
+<h2>What the tool stores</h2>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Contents</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S3 bucket</td>
+<td>canonical <code>secrets.json</code></td>
+<td>versioned; the source of truth</td>
+</tr>
+<tr>
+<td><code>.env</code></td>
+<td>local plaintext keys</td>
+<td>gitignored; permission-restricted</td>
+</tr>
+<tr>
+<td>Wave secret store</td>
+<td>keys for Wave cloud agents</td>
+<td>only the known provider presets</td>
+</tr>
+<tr>
+<td><code>key-bitcher.log</code></td>
+<td>timestamps + which command ran</td>
+<td>never prints key values</td>
+</tr>
+</tbody>
+</table>
+<h2>Reporting a vulnerability</h2>
+<p>Do <strong>not</strong> open a public issue with key material. Email<br />
+<code>merlin_felix_@hotmail.com</code> or file an issue describing the code path without<br />
+any secrets. See <a href="security.html"><code>SECURITY.md</code></a>.</p>
+    </main>
+  </div>
+  <script src="toggle.js"></script>
+  <script src="effects.js"></script>
+</body>
+</html>

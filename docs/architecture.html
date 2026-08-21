@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architecture | Key-Bitcher</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="icon" href="assets/logo-badge.svg">
+</head>
+<body>
+  <div class="top-banner">
+    <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <span>&#9888;&#65039; WARNING: Key-Bitcher strictly labels developer incompetence. Do not ask for support.</span>
+    <div class="banner-actions">
+      <a href="key-goblin.html" class="banner-goblin-link" title="Switch to the Key-Goblin Hoard">&#129421; KEY-GOBLIN HOARD &#8599;</a>
+      <div class="bitch-toggle-wrap">
+        <span class="toggle-label">BITCH MODE:</span>
+        <label class="switch">
+          <input type="checkbox" id="bitchModeToggle">
+          <span class="slider round"></span>
+        </label>
+        <span id="bitchStatus" class="status-off">OFF</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <a href="index.html"><img src="assets/logo-badge.svg" alt="Key-Bitcher Logo" class="brand-img"></a>
+        <h2>KEY-BITCHER</h2>
+        <p class="tagline">Managing your keys. No apologies.</p>
+      </div>
+      
+<nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="getting-started.html" class="nav-link">Getting Started</a>
+        <a href="commands.html" class="nav-link">Commands</a>
+        <a href="configuration.html" class="nav-link">Configuration</a>
+        <a href="wave-integration.html" class="nav-link">Wave Integration</a>
+        <a href="architecture.html" class="nav-link active">Architecture</a>
+        <a href="security.html" class="nav-link">Security</a>
+        <a href="ide-integrations.html" class="nav-link">IDE & Terminal Integrations</a>
+        <a href="development.html" class="nav-link">Development</a>
+</nav>
+
+      <div class="nav-group-label">Roadmap</div>
+      <nav class="nav-menu">
+        <a href="key-goblin.html" class="nav-link">Key-Goblin Hoard &#129421;</a>
+      </nav>
+      <div class="repo-box">
+        <p>Repo target:</p>
+        <code>merlin-tribukait/KEY-BITCHER</code>
+        <a href="https://github.com/merlin-tribukait/KEY-BITCHER" target="_blank" class="btn-git">View on GitHub &#8599;</a>
+      </div>
+    </aside>
+    <main class="content docs-content">
+      <h1>Architecture</h1>
+  <div class="bitch-quote doc-quote reveal" aria-hidden="true"><span class="bq-mark">💬</span><p>Error message #42: "Your .env has opinions. Your .env is wrong."</p></div>
+<p>This page explains <em>why</em> the tool is shaped the way it is, not just what it<br />
+does.</p>
+<h2>The problem it solves</h2>
+<p>A working AI setup needs several independent pieces of state:</p>
+<ul>
+<li>provider API keys (many providers, many backups per provider),</li>
+<li>a shared canonical copy so multiple machines/people agree on the key set,</li>
+<li>the Wave terminal's cloud secret store,</li>
+<li>your local <code>.env</code>,</li>
+<li>knowledge about whether each key is still valid.</li>
+</ul>
+<p>The naive approach — paste keys around — fails silently: keys expire, get<br />
+typo'd, or one machine gets updated and the next doesn't. <code>key-bitcher</code><br />
+makes the bucket the <strong>single source of truth</strong> and turns every other store<br />
+into a derived, verifiable copy.</p>
+<h2>Data flow</h2>
+<pre><code>                    +---------------------+
+                    | S3 bucket           |  canonical store
+                    | secrets/ai-keys.json|  (versioned, recoverable)
+                    +----------+----------+
+                               ^
+            upload / import-md |
+                               |
+   working.md handout ----+    |
+                          |    v
+                        import-md -&gt; secrets.json -&gt; upload
+                               |            |
+                               v            v
+                          .env (local)   benchmark (health)
+                               |
+                               v
+                        wave-import -&gt; Wave secret store
+</code></pre>
+<h2>Core ideas</h2>
+<h3>1. Bucket is the source of truth</h3>
+<p><code>.env</code>, the Wave store, and every machine are all <em>projections</em> of the bucket<br />
+object. You never edit secrets at the edge — you <code>upload</code>, then<br />
+<code>sync-secrets</code> everywhere. Versioning on the bucket means a bad upload is a<br />
+recovery step, not a disaster.</p>
+<h3>2. Failover via key alternates</h3>
+<p>Providers ship multiple keys (<code>OPENAI_API_KEY</code>, <code>OPENAI_API_KEY_2</code>, ...).<br />
+<code>benchmark</code> tries <strong>every</strong> key per provider, promotes the first working one,<br />
+and leaves the rest as hot spares. This is why expired keys degrade<br />
+gracefully instead of breaking the whole flow.</p>
+<h3>3. Validation at the boundary</h3>
+<p><code>import-md</code> is the dangerous moment — a human pasting keys. The parser<br />
+enforces <code>## Section</code> structure, supports <code>NAME: value</code> and <code>NAME=value</code><br />
+forms, and detects duplicates. <code>validate --source s3|env</code> re-checks the<br />
+bucket and <code>.env</code> for the same class of mistakes. Garbage is rejected before<br />
+it is uploaded, not after.</p>
+<h3>4. Stateless commands, auditable actions</h3>
+<p>Every subcommand does exactly one thing, so it composes in scripts, CI, and<br />
+IDE tasks. A command that "might also do something else" is harder to reason<br />
+about and easier to misfire. <code>--dry-run</code> / <code>--print-exports</code> modes exist so<br />
+you can preview before mutating.</p>
+<h3>5. Safety rails</h3>
+<ul>
+<li>The append-only log is size-rotated (bounded disk use).</li>
+<li><code>key-bitcher-notifications.md</code> and <code>.env</code> are gitignored.</li>
+<li>CI runs a gitleaks scan on every push (see <a href="security.html">Security</a>).</li>
+<li>The S3 client uses <code>rustls-ring</code> (no OpenSSL dependency, fewer supply-chain<br />
+  attack surfaces).</li>
+</ul>
+<h2>Module map</h2>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/main.rs</code></td>
+<td>CLI parsing (<code>clap</code>), command dispatch, auto flow</td>
+</tr>
+<tr>
+<td><code>src/config.rs</code></td>
+<td><code>key-bitcher.toml</code>, <code>LoggingConfig</code>, section overrides</td>
+</tr>
+<tr>
+<td><code>src/secrets.rs</code></td>
+<td>the <code>secrets.json</code> model, serialization, key logic</td>
+</tr>
+<tr>
+<td><code>src/workingmd.rs</code></td>
+<td>the <code>working.md</code> parser</td>
+</tr>
+<tr>
+<td><code>src/s3.rs</code></td>
+<td>S3/B2 client (rustls), upload/download, versioning check</td>
+</tr>
+<tr>
+<td><code>src/benchmark.rs</code></td>
+<td>provider health checks + key promotion</td>
+</tr>
+<tr>
+<td><code>src/rust_setup.rs</code></td>
+<td>machine bootstrap (toolchain, integrations)</td>
+</tr>
+<tr>
+<td><code>src/logging.rs</code></td>
+<td>rotating file logger</td>
+</tr>
+</tbody>
+</table>
+<h2>Why Rust</h2>
+<ul>
+<li>Single static binary, no runtime, trivial to distribute in <code>release.yml</code>.</li>
+<li><code>rustls</code> lets us talk to S3 without OpenSSL; fewer CVEs than a shared C<br />
+  stack.</li>
+<li>Strong typing on the config/secrets models catches misconfiguration at<br />
+  compile time rather than at 3 a.m. during a rotation.</li>
+</ul>
+    </main>
+  </div>
+  <script src="toggle.js"></script>
+  <script src="effects.js"></script>
+</body>
+</html>

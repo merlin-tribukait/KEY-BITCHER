@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Development | Key-Bitcher</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="icon" href="assets/logo-badge.svg">
+</head>
+<body>
+  <div class="top-banner">
+    <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <span>&#9888;&#65039; WARNING: Key-Bitcher strictly labels developer incompetence. Do not ask for support.</span>
+    <div class="banner-actions">
+      <a href="key-goblin.html" class="banner-goblin-link" title="Switch to the Key-Goblin Hoard">&#129421; KEY-GOBLIN HOARD &#8599;</a>
+      <div class="bitch-toggle-wrap">
+        <span class="toggle-label">BITCH MODE:</span>
+        <label class="switch">
+          <input type="checkbox" id="bitchModeToggle">
+          <span class="slider round"></span>
+        </label>
+        <span id="bitchStatus" class="status-off">OFF</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <a href="index.html"><img src="assets/logo-badge.svg" alt="Key-Bitcher Logo" class="brand-img"></a>
+        <h2>KEY-BITCHER</h2>
+        <p class="tagline">Managing your keys. No apologies.</p>
+      </div>
+      
+<nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="getting-started.html" class="nav-link">Getting Started</a>
+        <a href="commands.html" class="nav-link">Commands</a>
+        <a href="configuration.html" class="nav-link">Configuration</a>
+        <a href="wave-integration.html" class="nav-link">Wave Integration</a>
+        <a href="architecture.html" class="nav-link">Architecture</a>
+        <a href="security.html" class="nav-link">Security</a>
+        <a href="ide-integrations.html" class="nav-link">IDE & Terminal Integrations</a>
+        <a href="development.html" class="nav-link active">Development</a>
+</nav>
+
+      <div class="nav-group-label">Roadmap</div>
+      <nav class="nav-menu">
+        <a href="key-goblin.html" class="nav-link">Key-Goblin Hoard &#129421;</a>
+      </nav>
+      <div class="repo-box">
+        <p>Repo target:</p>
+        <code>merlin-tribukait/KEY-BITCHER</code>
+        <a href="https://github.com/merlin-tribukait/KEY-BITCHER" target="_blank" class="btn-git">View on GitHub &#8599;</a>
+      </div>
+    </aside>
+    <main class="content docs-content">
+      <h1>Development</h1>
+  <div class="bitch-quote doc-quote reveal" aria-hidden="true"><span class="bq-mark">💬</span><p>Error message #42: "Your .env has opinions. Your .env is wrong."</p></div>
+<h2>Build &amp; test</h2>
+<pre><code class="language-powershell">.\build.ps1 -Profile release -Clippy -Test -Fmt
+</code></pre>
+<p>This runs, in order:</p>
+<ol>
+<li><code>cargo fmt --check</code></li>
+<li><code>cargo clippy --release -- -D warnings</code></li>
+<li><code>cargo test --release</code></li>
+<li><code>cargo build --release</code></li>
+</ol>
+<p>Or run the pieces individually:</p>
+<pre><code class="language-bash">cargo build --release
+cargo test
+cargo clippy --release -- -D warnings
+cargo fmt
+</code></pre>
+<h2>Code layout</h2>
+<p>See <a href="architecture.html">Architecture</a> for the module map. The important entry<br />
+points:</p>
+<ul>
+<li><code>src/main.rs</code> — <code>clap</code> definitions (global flags + <code>Commands</code> enum) and<br />
+  dispatch. Add a subcommand by extending the enum and matching it here.</li>
+<li><code>src/config.rs</code> — config structs that deserialize <code>key-bitcher.toml</code>;<br />
+  additive optional fields keep old configs working.</li>
+<li><code>src/secrets.rs</code> — the <code>secrets.json</code> model. This is the canonical key set.</li>
+<li><code>src/workingmd.rs</code> — the <code>working.md</code> parser. New section-name mappings go<br />
+  in its built-in table (or via <code>[sections]</code>).</li>
+</ul>
+<h2>Testing strategy</h2>
+<p>Unit tests live next to the code they cover (<code>config</code>, <code>secrets</code>,<br />
+<code>workingmd</code>). CI runs them on Ubuntu and Windows. A new parser feature or key<br />
+transformation <strong>must</strong> ship with tests — this is a secrets tool, and a<br />
+silent copy/paste bug is the class of bug it exists to prevent.</p>
+<h2>CI</h2>
+<p><code>.github/workflows/ci.yml</code>:</p>
+<ul>
+<li><code>gitleaks</code> job — scans the push for secrets, fails on findings.</li>
+<li><code>build</code> job — matrix over <code>ubuntu-latest</code> and <code>windows-latest</code>, runs<br />
+<code>fmt --check</code>, <code>clippy -D warnings</code>, <code>test</code>, <code>build</code>.</li>
+</ul>
+<p><code>.github/workflows/release.yml</code> — builds release binaries for Ubuntu and<br />
+Windows and publishes a GitHub release on tags.</p>
+<p><code>.github/workflows/pages.yml</code> — builds the Jekyll site in <code>docs/</code> and deploys<br />
+it to GitHub Pages (source must be set to <strong>GitHub Actions</strong> in repo<br />
+settings).</p>
+<p><code>.github/dependabot.yml</code> — weekly updates for Cargo and GitHub Actions.</p>
+<h2>Contributing</h2>
+<ol>
+<li>Open an issue first for anything non-trivial (the issue list doubles as<br />
+   the roadmap — see the <a href="index.html"><code>README</code></a> and the<br />
+<a href="https://github.com/merlin-tribukait/KEY-BITCHER/issues">issues page</a>).</li>
+<li>Keep commands single-purpose; add <code>--dry-run</code> modes, not side effects.</li>
+<li>Never print or log key <em>values</em> — the logging layer must stay<br />
+   value-free.</li>
+<li>Follow the format/clippy gates; they are enforced in CI.</li>
+</ol>
+<h2>Release process</h2>
+<ol>
+<li>Update <code>Cargo.toml</code> version and add a <code>CHANGELOG.md</code> entry.</li>
+<li>Tag: <code>git tag v0.x.x &amp;&amp; git push --tags</code>.</li>
+<li><code>release.yml</code> builds and attaches the binaries to a GitHub release.</li>
+</ol>
+    </main>
+  </div>
+  <script src="toggle.js"></script>
+  <script src="effects.js"></script>
+</body>
+</html>
